@@ -69,6 +69,10 @@ class CMakeBuild(build_ext):
             "-DFL_LIBRARIES_USE_KENLM=" + use_kenlm,
             "-DFL_LIBRARIES_USE_MKL=" + use_mkl,
         ]
+        arrayfire_dir = os.getenv("ARRAYFIRE_DIR", None)
+        # Fixing a bug.
+        if arrayfire_dir:
+          cmake_args.append("-DArrayFire_DIR=" + arrayfire_dir)
         cfg = "Debug" if self.debug else "Release"
         build_args = ["--config", cfg]
 
